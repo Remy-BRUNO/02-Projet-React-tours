@@ -12,22 +12,13 @@ const Tour = ({ visite, handleDelete }) => {
         <div className="tour-info">
           <h5>{name}</h5>
           <h5 className="tour-price">${price} </h5>
-          {!strInfo ? (
-            <p>
-              {info.substring(1, 200)}
-              ...{" "}
-              <button onClick={() => setstrInfo(true)} className="info-btn">
-                Read more
-              </button>
-            </p>
-          ) : (
-            <p>
-              {info}{" "}
-              <button onClick={() => setstrInfo(false)} className="info-btn">
-                Read less
-              </button>
-            </p>
-          )}
+          <p>
+            {!strInfo ? info.substring(1, 200) + "... " : info + " "}
+            <button onClick={() => setstrInfo(!strInfo)} className="info-btn">
+              {!strInfo ? " Read More" : "Read Less"}
+            </button>
+          </p>
+
           <button
             onClick={() => handleDelete(id)}
             className="delete-btn btn-block btn"

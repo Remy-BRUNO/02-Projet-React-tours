@@ -10,6 +10,7 @@ function App() {
   const [isError, setIsError] = useState(false)
 
   const fetchTours = async () => {
+    setIsLoading(true)
     try {
       const response = await fetch(url)
       if (!response.ok) {
@@ -38,9 +39,26 @@ function App() {
   if (isError) {
     return <h2>Une erreur s&apos;est produite...</h2>
   }
+
+  const handleDelete = (id) => {
+    setVisites(visites.filter((el) => el.id !== id))
+  }
   return (
     <main>
-      <Tours visites={visites} />
+      {!visites[0] ? (
+        <div className="title">
+          <h2>No Tours Left</h2>
+          <button
+            onClick={fetchTours}
+            className="btn"
+            style={{ marginTop: "2rem" }}
+          >
+            Refrech
+          </button>
+        </div>
+      ) : (
+        <Tours visites={visites} handleDelete={handleDelete} />
+      )}
     </main>
   )
 }
